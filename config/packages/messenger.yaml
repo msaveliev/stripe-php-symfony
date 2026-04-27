@@ -1,0 +1,51 @@
+framework:
+    messenger:
+        # failure_transport: failed_default
+
+        buses:
+            messenger.bus.default:
+                middleware:
+                    - Symfony\Component\Messenger\Bridge\AmazonSqs\Middleware\AddFifoStampMiddleware
+                    - App\Messenger\Middleware\ConsumeOnlyValidationMiddleware
+                    - doctrine_transaction
+
+        transports:
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: true
+                retry_strategy:
+                    max_retries: 3
+                    delay: 5000
+                    multiplier: 2
+                    max_delay: 60000
+            stripe_events_sync:
+                dsn: 'sync://'
+
+            stripe_events_async:
+                dsn: '%env(MESSENGER_STRIPE_TRANSPORT_DSN)%'
+                options:
+                    wait_time: 20
+                    buffer_size: 9
+                retry_strategy:
+                    max_retries: 3
+                    delay: 0
+                    multiplier: 1
+                failure_transport: failed_stripe_events
+
+            # TODO: Consumer should be run manually and under observation since it SQS FIFO has no delay option, so it will retry without pause until max_retries reached.
+            failed_stripe_events:
+                dsn: '%env(MESSENGER_STRIPE_FAILED_TRANSPORT_DSN)%'
+                options:
+                    delete_on_rejection: false
+                    wait_time: 20
+                    buffer_size: 3
+                retry_strategy:
+                    max_retries: 10000
+                    delay: 0
+                    multiplier: 1
+                failure_transport: failed_stripe_events
+
+        routing:
+            'App\Message\StripeEventSyncMessageInterface': stripe_events_sync
+            'App\Message\StripeEventAsyncMessageInterface': stripe_events_async

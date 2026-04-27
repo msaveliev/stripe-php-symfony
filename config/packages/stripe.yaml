@@ -1,0 +1,35 @@
+parameters:
+  stripe.api_version: '%env(STRIPE_API_VERSION)%'
+  stripe.secret_key: '%env(STRIPE_SECRET_KEY)%'
+  stripe.webhook_secret: '%env(STRIPE_WEBHOOK_SECRET)%'
+  stripe.webhook_event_map:
+      'customer.subscription.created': App\Event\Subscription\SubscriptionCreatedEvent
+      'customer.subscription.updated': App\Event\Subscription\SubscriptionUpdatedEvent
+      'customer.subscription.paused': App\Event\Subscription\SubscriptionPausedEvent
+      'customer.subscription.deleted': App\Event\Subscription\SubscriptionDeletedEvent
+      'customer.subscription.trial_will_end': App\Event\Subscription\SubscriptionTrialEndingEvent
+      'invoice.paid': App\Event\Invoice\InvoicePaidEvent
+      'invoice.payment_failed': App\Event\Invoice\InvoicePaymentFailedEvent
+
+services:
+    stripe.client:
+        class: 'Stripe\StripeClient'
+        arguments:
+            -   api_key: '%stripe.secret_key%'
+                stripe_version: '%stripe.api_version%'
+                max_network_retries: 2
+
+    Stripe\StripeClient: '@stripe.client'
+
+    App\Webhook\StripeWebhookVerifier:
+        arguments:
+            $webhookSecret: '%stripe.webhook_secret%'
+
+    App\Webhook\WebhookEventFactory:
+        arguments:
+            $eventMap: '%stripe.webhook_event_map%'
+
+    App\Messenger\Middleware\ConsumeOnlyValidationMiddleware:
+        arguments:
+            $validator: '@validator'
+            $logger: '@monolog.logger.messenger'
