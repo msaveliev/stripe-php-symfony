@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Subscription;
+namespace App\Messenger\MessageHandler\Subscription;
 
 use App\Client\StripeApiClient;
 use App\Enum\SubscriptionStatus;
 use App\Exception\StripeException;
-use App\Message\Subscription\SubscriptionDeletedMessage;
+use App\Messenger\Message\Subscription\SubscriptionDeletedMessage;
 use App\Repository\SubscriptionRepository;
 use App\StateMachine\Context\SubscriptionTransitionContext;
 use App\StateMachine\Exception\InvalidTransitionException;

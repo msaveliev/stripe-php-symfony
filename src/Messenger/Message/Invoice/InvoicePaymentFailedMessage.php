@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Message\Invoice;
+namespace App\Messenger\Message\Invoice;
 
-use App\Message\StripeEventAsyncMessageInterface;
+use App\Messenger\Message\StripeEventAsyncMessageInterface;
 use Symfony\Component\Messenger\Bridge\AmazonSqs\MessageGroupAwareInterface;
 
-readonly class InvoicePaidMessage implements MessageGroupAwareInterface, StripeEventAsyncMessageInterface
+readonly class InvoicePaymentFailedMessage implements MessageGroupAwareInterface, StripeEventAsyncMessageInterface
 {
     public function __construct(
         private string $eventId,
         private string $invoiceId,
         private string $customerId,
         private string $subscriptionId,
-        private int $amountPaid,
-        private string $currency,
+        private int $attemptCount,
     ) {
     }
 
@@ -34,19 +33,14 @@ readonly class InvoicePaidMessage implements MessageGroupAwareInterface, StripeE
         return $this->customerId;
     }
 
-    public function getSubscriptionId(): ?string
+    public function getSubscriptionId(): string
     {
         return $this->subscriptionId;
     }
 
-    public function getAmountPaid(): int
+    public function getAttemptCount(): int
     {
-        return $this->amountPaid;
-    }
-
-    public function getCurrency(): string
-    {
-        return $this->currency;
+        return $this->attemptCount;
     }
 
     public function getMessageGroupId(): ?string

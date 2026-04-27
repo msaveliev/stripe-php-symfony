@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Message;
+namespace App\Messenger\Message;
+
+use App\Messenger\Message\StripeEventMessageInterface;
 
 interface StripeEventAsyncMessageInterface extends StripeEventMessageInterface
 {

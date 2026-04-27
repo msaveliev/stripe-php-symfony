@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Subscription;
+namespace App\Messenger\MessageHandler\Subscription;
 
 use App\Client\StripeApiClient;
 use App\Enum\SubscriptionEvent;
 use App\Enum\SubscriptionStatus;
 use App\Exception\StripeException;
-use App\Message\Subscription\SubscriptionUpdatedMessage;
+use App\Messenger\Message\Subscription\SubscriptionUpdatedMessage;
 use App\Repository\SubscriptionRepository;
 use App\Repository\UserRepository;
 use App\StateMachine\Context\SubscriptionTransitionContext;

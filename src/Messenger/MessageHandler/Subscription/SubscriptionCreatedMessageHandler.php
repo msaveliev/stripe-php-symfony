@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Subscription;
+namespace App\Messenger\MessageHandler\Subscription;
 
-use App\Message\Subscription\SubscriptionCreatedMessage;
+use App\Messenger\Message\Subscription\SubscriptionCreatedMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

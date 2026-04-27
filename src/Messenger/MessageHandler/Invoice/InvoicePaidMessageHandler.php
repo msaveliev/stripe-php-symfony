@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Invoice;
+namespace App\Messenger\MessageHandler\Invoice;
 
-use App\Message\Invoice\InvoicePaidMessage;
+use App\Messenger\Message\Invoice\InvoicePaidMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

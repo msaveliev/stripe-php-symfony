@@ -7,7 +7,7 @@ namespace App\StateMachine\Context;
 use App\Entity\StripeSubscription;
 use App\Entity\User;
 use App\Enum\SubscriptionStatus;
-use App\Message\StripeEventMessageInterface;
+use App\Messenger\Message\StripeEventMessageInterface;
 use Stripe\Subscription;
 
 final readonly class SubscriptionTransitionContext

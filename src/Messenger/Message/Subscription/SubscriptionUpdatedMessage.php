@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Message\Subscription;
+namespace App\Messenger\Message\Subscription;
 
-use App\Message\StripeEventAsyncMessageInterface;
+use App\Messenger\Message\StripeEventAsyncMessageInterface;
 use Symfony\Component\Messenger\Bridge\AmazonSqs\MessageGroupAwareInterface;
 
 readonly class SubscriptionUpdatedMessage implements MessageGroupAwareInterface, StripeEventAsyncMessageInterface

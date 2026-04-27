@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Subscription;
+namespace App\Messenger\MessageHandler\Subscription;
 
 use App\Client\StripeApiClient;
 use App\Exception\StripeException;
-use App\Message\Subscription\SubscriptionPausedMessage;
+use App\Messenger\Message\Subscription\SubscriptionPausedMessage;
 use Stripe\Subscription;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;

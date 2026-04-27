@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\MessageHandler\Invoice;
+namespace App\Messenger\MessageHandler\Invoice;
 
 use App\Client\StripeApiClient;
 use App\Exception\StripeException;
-use App\Message\Invoice\InvoicePaymentFailedMessage;
+use App\Messenger\Message\Invoice\InvoicePaymentFailedMessage;
 use Stripe\Invoice;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;

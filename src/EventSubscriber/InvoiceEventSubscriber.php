@@ -6,8 +6,8 @@ namespace App\EventSubscriber;
 
 use App\Event\Invoice\InvoicePaidEvent;
 use App\Event\Invoice\InvoicePaymentFailedEvent;
-use App\Message\Invoice\InvoicePaidMessage;
-use App\Message\Invoice\InvoicePaymentFailedMessage;
+use App\Messenger\Message\Invoice\InvoicePaidMessage;
+use App\Messenger\Message\Invoice\InvoicePaymentFailedMessage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
